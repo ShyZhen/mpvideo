@@ -1,0 +1,46 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app",
+				/* App平台特有配置 */
+				"app-plus": {    
+					"renderer": "native",//App端纯原生渲染模式
+					// 去掉uni自带的页面最外层scroll
+					"disableScroll": true,
+					// 不需要滚动条
+					"scrollIndicator": "none" //滚动条显示策略，设置为 "none" 时不显示滚动条
+				}
+			}
+		},
+		{
+			"path": "pages/video/index",
+			"style": {
+				"disableScroll": true,
+				"navigationStyle": "custom",
+				"titleNView": false
+			}
+		},
+		{
+			"path": "pages/txvideo/index",
+			"style": {
+				"disableScroll": true,
+				"enablePullDownRefresh": false,
+				"navigationStyle": "custom",
+				"titleNView": false,
+				"usingComponents": {
+					// #ifdef  MP-WEIXIN
+					"txv-video": "plugin://tencentvideo/video"
+					// #endif
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "FMock",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
