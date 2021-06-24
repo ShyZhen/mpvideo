@@ -50,13 +50,14 @@
 
         <cover-view class="auto">
           <cover-image src="../../static/txvideo/10.png"></cover-image>
-          <cover-view>光良 童话</cover-view>
+          <cover-view>庞龙 两只蝴蝶</cover-view>
         </cover-view>
       </cover-view>
     </view>
     <view class="right">
       <cover-view class="right_box  ">
         <!--        <cover-view class="top1">-->
+        <!--          <cover-image class="avatar_img" :src="PayVideo[index_].avatar_url" mode=""></cover-image>-->
         <!--          <cover-image class="add_img" src="../../static/txvideo/1.png" mode=""></cover-image>-->
         <!--        </cover-view>-->
         <cover-view class="top2">

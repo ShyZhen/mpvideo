@@ -3,9 +3,10 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app",
+				"navigationBarTitleText": "FMock",
+				//				"navigationStyle": "custom",
 				/* App平台特有配置 */
-				"app-plus": {    
+				"app-plus": {
 					"renderer": "native",//App端纯原生渲染模式
 					// 去掉uni自带的页面最外层scroll
 					"disableScroll": true,

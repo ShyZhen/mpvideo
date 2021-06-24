@@ -12,6 +12,71 @@ import http from './interface'
  * @param {Number} limit 条数
  * */
 export const getVideoInfos = (data) => {
+    let res = {
+        "code": 200,
+        "data": [
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+            {
+                "vid": '60c30961a30ce80001bb437d',
+                "image":'https://m.ykimg.com/0584000060A759C92027EE090EB42DD8',
+                "title":'一不小心捡到爱',
+                "desc":'失忆霸总爱上我',  //描述|摘要，有则显示
+                "jishu":'30集全',
+                "viptype":1,  //0 不要VIP || 1 要VIP 是否显示vip角标
+            },
+        ],
+        "msg": "查询成功"
+    }
+    return new Promise((resolve, reject) => {
+        resolve(res)
+    })
+
     return http.request({
         url: '/http/getVideoInfos',
         method: 'GET', 
