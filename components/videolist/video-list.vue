@@ -12,7 +12,7 @@
 						mode="aspectFill"
 						></image>
 						<!-- 顶部VIP角标||收藏等 -->
-						<view class="top" v-if="item.viptype===1">
+						<view class="top" v-if="item.vip_type===1">
 							<text class="top-text">VIP</text>
 						</view>
 						<!-- 底部评分等 -->

@@ -83,6 +83,8 @@
 
 <script>
 import utils from '../../utils/utils.js';
+import { getVideoDetail } from "@/apis/index"
+
 
 export default {
   components: {
@@ -95,7 +97,7 @@ export default {
       videoIndex: 0, // 当前视频播放的索引
       statusbarH: 0, // 状态栏高度
       videoState: true, // 当前视频播放的状态
-      defualtVideoId: null, // 默认视频
+      defaultVideoId: null, // 默认视频
       currentEx: 0, // 控制回弹字段
       reqLock: false, // 请求锁
       updateView: true // ios bug
@@ -108,7 +110,7 @@ export default {
     console.log(option)
     // 带参跳转
     if (option.id) {
-      this.defualtVideoId = option.id;
+      this.defaultVideoId = option.id;
     }
   },
   onReady() {
@@ -120,7 +122,7 @@ export default {
     getList: utils.debounce(function(id) {
       let isId = id == undefined;
       let {
-        defualtVideoId,
+        defaultVideoId,
         reqLock,
         baseList,
         videoIndex
@@ -129,18 +131,19 @@ export default {
       baseList = isId ? [] : baseList;
 
       // 存在并且id相同不再重复加载避免异常错误
-      if (defualtVideoId && defualtVideoId == id) {
+      if (defaultVideoId && defaultVideoId == id) {
         uni.showToast({
           title: '暂无更多视频',
           icon: 'none'
         });
         return;
       }
+      console.log('idd', defaultVideoId, isId, id)
 
       // 请求query
       let query = {
-        vId: !isId ? id : defualtVideoId,
-        type: (defualtVideoId != undefined && !isId) ? (id < defualtVideoId ? 1 : 2) : 2,
+        vId: !isId ? id : defaultVideoId,
+        type: (defaultVideoId != undefined && !isId) ? (id < defaultVideoId ? 1 : 2) : 2,
       };
 
       // 是否能请求
@@ -155,16 +158,16 @@ export default {
         icon: 'none'
       });
 
-      // 请求接口
-      this.$api.getVideoList(query).then(res => {
-
-        if (!defualtVideoId) {
-          defualtVideoId = this.defualtVideoId = res.current._id;
+      // 请求接口,获取上下文
+      getVideoDetail(query.type, query.vId).then(res => {
+        console.log(res)
+        if (!defaultVideoId) {
+          defaultVideoId = this.defaultVideoId = res.current._id;
         }
 
         // id存在表示加载更多视频
         if (!isId) {
-          let arr = id < defualtVideoId ? res.pre_video : res.after_video;
+          let arr = id < defaultVideoId ? res.pre_video : res.after_video;
 
           if (arr.length <= 0) {
             uni.showToast({
@@ -174,7 +177,7 @@ export default {
             return;
           }
           // 下滑加载
-          else if (id < defualtVideoId) {
+          else if (id < defaultVideoId) {
             baseList.unshift(...arr.reverse());
             this.videoIndex = videoIndex + arr.length; // 保持当前索引
           }
@@ -192,7 +195,7 @@ export default {
         let index = 0;
         baseList.forEach(item => {
           item.index = index++;
-          if (isId && item._id == this.defualtVideoId) {
+          if (isId && item._id == this.defaultVideoId) {
             this.videoIndex = item.index;
           }
         });
@@ -258,20 +261,6 @@ export default {
       showList[nextSwiperIndex] = nextVideo;
 
       this.$set(this.$data, 'showList', showList);
-
-      // 播放当前选择的视频关闭其他的视频
-      this.$nextTick(() => {
-        uni.createVideoContext(`video${upSwiperIndex}`, this).stop();
-        uni.createVideoContext(`video${nextSwiperIndex}`, this).stop();
-        uni.createVideoContext(`video${swiperIndex}`, this).play();
-      })
-    },
-
-    // 修改当前视频的播放状态
-    changeVideoState(e) {
-      let video = uni.createVideoContext(e.currentTarget.id, this);
-      this.videoState ? video.pause() : video.play();
-      this.videoState = !this.videoState;
     },
 
     // 处理 IOS controls为false情况下 同层渲染bug代码
@@ -294,7 +283,7 @@ export default {
       this.swiperIndex = 0; // 当前swiper的索引
       this.videoIndex = 0; // 当前视频播放的索引
       this.videoState = true; // 当前视频播放的状态
-      this.defualtVideoId = videoId; // 默认视频
+      this.defaultVideoId = videoId; // 默认视频
       this.currentEx = 0; // 控制回弹字段
       this.reqLock = false; // 请求锁
       this.getList();

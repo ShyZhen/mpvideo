@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getVideoListr } from "@/apis/index"
+import { getVideoList } from "@/apis/index"
 import VideoList from "../../components/videolist/video-list"
 import LoadMore from "../../components/loadmore/load-more";
 
@@ -67,7 +67,7 @@ export default {
         tabItem.currentPage = 1
       }
 
-      getVideoListr(this.videoId, tabItem.currentPage).then(res => {
+      getVideoList(this.videoId, tabItem.currentPage).then(res => {
         let list = res.data.data
 
         if (type === 'refresh') {

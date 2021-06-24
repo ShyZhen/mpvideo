@@ -63,7 +63,7 @@ import operation from './components/operation.vue';
 				videoIndex: 0, // 当前视频播放的索引
 				statusbarH: 0, // 状态栏高度
 				videoState: true, // 当前视频播放的状态
-				defualtVideoId: null, // 默认视频
+				defaultVideoId: null, // 默认视频
 				currentEx: 0, // 控制回弹字段
 				reqLock: false, // 请求锁
 				updateView: true // ios bug
@@ -76,7 +76,7 @@ import operation from './components/operation.vue';
 			console.log(option)
 			// 带参跳转
 			if (option.id) {
-				this.defualtVideoId = option.id;
+				this.defaultVideoId = option.id;
 			}
 		},
 		onReady() {
@@ -88,7 +88,7 @@ import operation from './components/operation.vue';
 			getList: utils.debounce(function(id) {
 				let isId = id == undefined;
 				let {
-					defualtVideoId,
+					defaultVideoId,
 					reqLock,
 					baseList,
 					videoIndex
@@ -97,7 +97,7 @@ import operation from './components/operation.vue';
 				baseList = isId ? [] : baseList;
 
 				// 存在并且id相同不再重复加载避免异常错误
-				if (defualtVideoId && defualtVideoId == id) {
+				if (defaultVideoId && defaultVideoId == id) {
 					uni.showToast({
 						title: '暂无更多视频',
 						icon: 'none'
@@ -107,8 +107,8 @@ import operation from './components/operation.vue';
 
 				// 请求query
 				let query = {
-					vId: !isId ? id : defualtVideoId,
-					type: (defualtVideoId != undefined && !isId) ? (id < defualtVideoId ? 1 : 2) : 2,
+					vId: !isId ? id : defaultVideoId,
+					type: (defaultVideoId != undefined && !isId) ? (id < defaultVideoId ? 1 : 2) : 2,
 				};
 
 				// 是否能请求
@@ -126,13 +126,13 @@ import operation from './components/operation.vue';
 				// 请求接口
 				this.$api.getVideoList(query).then(res => {
 
-					if (!defualtVideoId) {
-						defualtVideoId = this.defualtVideoId = res.current._id;
+					if (!defaultVideoId) {
+						defaultVideoId = this.defaultVideoId = res.current._id;
 					}
 
 					// id存在表示加载更多视频
 					if (!isId) {
-						let arr = id < defualtVideoId ? res.pre_video : res.after_video;
+						let arr = id < defaultVideoId ? res.pre_video : res.after_video;
 
 						if (arr.length <= 0) {
 							uni.showToast({
@@ -142,7 +142,7 @@ import operation from './components/operation.vue';
 							return;
 						}
 						// 下滑加载
-						else if (id < defualtVideoId) {
+						else if (id < defaultVideoId) {
 							baseList.unshift(...arr.reverse());
 							this.videoIndex = videoIndex + arr.length; // 保持当前索引
 						}
@@ -160,7 +160,7 @@ import operation from './components/operation.vue';
 					let index = 0;
 					baseList.forEach(item => {
 						item.index = index++;
-						if (isId && item._id == this.defualtVideoId) {
+						if (isId && item._id == this.defaultVideoId) {
 							this.videoIndex = item.index;
 						}
 					});
@@ -262,7 +262,7 @@ import operation from './components/operation.vue';
 				this.swiperIndex = 0; // 当前swiper的索引
 				this.videoIndex = 0; // 当前视频播放的索引
 				this.videoState = true; // 当前视频播放的状态
-				this.defualtVideoId = videoId; // 默认视频
+				this.defaultVideoId = videoId; // 默认视频
 				this.currentEx = 0; // 控制回弹字段
 				this.reqLock = false; // 请求锁
 				this.getList();
