@@ -1,0 +1,14 @@
+const env = {
+    appName: 'FMock',
+
+    // 是否开启debug
+    debug: true,
+
+    version: 'Version 1.0.0',
+
+    // API 地址
+    apiBaseUrl: 'https://api.fmock.com',
+
+}
+
+export default env
