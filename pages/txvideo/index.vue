@@ -26,7 +26,7 @@
       <swiper-item v-for="(item,i) of showList">
         <view class="sv-item">
 
-          <txv-video playerid="i" vid="z3102dhik4e"
+          <txv-video playerid="i" :vid="item.vid"
                      width="100%" height="100%" autoplay="true" isHiddenStop="true" enablePlayGesture="true" playBtnPosition="center">
           </txv-video>
 
@@ -45,8 +45,8 @@
           <cover-view>外卖红包免费领</cover-view>
         </cover-view>
 
-        <cover-view class="ren">{{ PayVideo[index_].title }}</cover-view>
-        <cover-view class="ke_context">{{ PayVideo[index_].desc }}</cover-view>
+        <cover-view class="ren">{{ currItem.title }}</cover-view>
+        <cover-view class="ke_context">{{ currItem.desc }}</cover-view>
 
         <cover-view class="auto">
           <cover-image src="../../static/txvideo/10.png"></cover-image>
@@ -56,10 +56,6 @@
     </view>
     <view class="right">
       <cover-view class="right_box  ">
-        <!--        <cover-view class="top1">-->
-        <!--          <cover-image class="avatar_img" :src="PayVideo[index_].avatar_url" mode=""></cover-image>-->
-        <!--          <cover-image class="add_img" src="../../static/txvideo/1.png" mode=""></cover-image>-->
-        <!--        </cover-view>-->
         <cover-view class="top2">
           <cover-image class="t_img" src="../../static/txvideo/2.png" mode=""></cover-image>
           <cover-view class="font_t">397</cover-view>
@@ -91,6 +87,7 @@ export default {
   },
   data() {
     return {
+      currItem: {},
       baseList: [], // 数据池
       showList: [], // 当前显示的列表
       swiperIndex: 0, // 当前swiper的索引
@@ -105,12 +102,11 @@ export default {
   },
   onLoad: function(option) {
     const res = wx.getSystemInfoSync()
-    this.statusbarH = res.statusBarHeight;
+    this.statusbarH = res.statusBarHeight
 
-    console.log(option)
     // 带参跳转
     if (option.id) {
-      this.defaultVideoId = option.id;
+      this.defaultVideoId = option.id
     }
   },
   onReady() {
@@ -130,6 +126,9 @@ export default {
 
       baseList = isId ? [] : baseList;
 
+      //console.log('aanwu',defaultVideoId, id)
+      //aanwu z3102dhik4e undefined
+
       // 存在并且id相同不再重复加载避免异常错误
       if (defaultVideoId && defaultVideoId == id) {
         uni.showToast({
@@ -138,7 +137,9 @@ export default {
         });
         return;
       }
-      console.log('idd', defaultVideoId, isId, id)
+
+      //console.log('idd', defaultVideoId, isId, id)
+      //idd z3102dhik4e true undefined
 
       // 请求query
       let query = {
@@ -160,14 +161,13 @@ export default {
 
       // 请求接口,获取上下文
       getVideoDetail(query.type, query.vId).then(res => {
-        console.log(res)
         if (!defaultVideoId) {
-          defaultVideoId = this.defaultVideoId = res.current._id;
+          defaultVideoId = this.defaultVideoId = res.data.current.id
         }
 
         // id存在表示加载更多视频
         if (!isId) {
-          let arr = id < defaultVideoId ? res.pre_video : res.after_video;
+          let arr = id < defaultVideoId ? res.data.pre_video : res.data.after_video;
 
           if (arr.length <= 0) {
             uni.showToast({
@@ -186,19 +186,20 @@ export default {
             baseList = baseList.concat(arr);
           }
         } else {
-          baseList = res.pre_video.reverse();
-          baseList.push(res.current);
-          baseList = baseList.concat(res.after_video);
+          baseList = res.data.pre_video.reverse();
+          baseList.push(res.data.current);
+          baseList = baseList.concat(res.data.after_video);
         }
 
         // 重新赋值索引
         let index = 0;
         baseList.forEach(item => {
           item.index = index++;
-          if (isId && item._id == this.defaultVideoId) {
+          if (isId && item.id == this.defaultVideoId) {
             this.videoIndex = item.index;
           }
         });
+        this.$set(this.$data, 'currItem', res.data.current);
         this.$set(this.$data, 'baseList', baseList);
         this.setShowList();
       }).finally(() => {
@@ -217,10 +218,11 @@ export default {
         // 判 如果下一个视频没有则进行回弹
         let nowItem = this.showList[newIndex];
         if (nowItem.index != -1) {
+          this.currItem = nowItem
           this.videoIndex = nowItem.index;
           this.setShowList();
         } else {
-          this.getList(this.baseList[this.videoIndex]._id);
+          this.getList(this.baseList[this.videoIndex].id);
           this.currentEx = oldIndex;
         }
       },10)

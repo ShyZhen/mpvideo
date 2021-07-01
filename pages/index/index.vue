@@ -107,7 +107,6 @@ export default {
     },
 
     itemClick(item) {
-      console.log(item)
       // 原生video
       // uni.navigateTo({
       //   url: `/pages/video/index?id=${item.vid}`,
@@ -115,7 +114,7 @@ export default {
 
       // 腾讯视频插件
       uni.navigateTo({
-        url: `/pages/txvideo/index?id=${item.vid}`,
+        url: `/pages/txvideo/index?id=${item.id}`,
       })
     },
   }
