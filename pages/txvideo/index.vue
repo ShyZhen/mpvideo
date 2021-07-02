@@ -440,11 +440,10 @@ page {
       font-family: SF Pro Text;
       font-weight: 500;
       color: rgba(255, 255, 255, 1);
-      text-shadow: 0px 1rpx 1rpx rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1rpx 1rpx rgba(0, 0, 0, 0.4);
       text-align: center;
     }
   }
-
 }
 
 .sv-item,

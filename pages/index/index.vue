@@ -10,8 +10,11 @@
       </view>
     </scroll-view>
 
-    <video-list :videolist="navList[videoId].itemsList" @itemClick="itemClick"></video-list>
-    <load-more :status="navList[videoId].loadMoreStatus" />
+    <view style="margin-top: 138rpx;">
+      <video-list :videolist="navList[videoId].itemsList" @itemClick="itemClick"></video-list>
+      <load-more :status="navList[videoId].loadMoreStatus" />
+    </view>
+
   </view>
 </template>
 
@@ -132,7 +135,15 @@ export default {
 .check-scroll {
   width: 100%;
   white-space: nowrap;
-  padding: 18px 0 18px 0;
+  overflow: hidden;
+  padding: 18px 0 0 0;
+  display: flex;
+  height: 120rpx;
+  position: fixed;
+  top: 0;
+  z-index: 101;
+  background-color: #F8F8F8;
+
   .check-date {
     margin: 0 8px 0 8px;
     display: inline-flex;
