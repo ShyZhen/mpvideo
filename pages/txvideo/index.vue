@@ -13,7 +13,7 @@
   <view>
 
     <view class="navbar" :style="{top:statusbarH + 'px'}">
-      <uni-icons type="back" color="#fff" size="30" @click="back" />
+        <cover-image class="back-icon" src="../../static/txvideo/back.png" mode="" @click="back"></cover-image>
     </view>
 
     <!-- 勿删! 用于处理 IOS bug ，频繁触发视图渲染解决同层渲染bug -->
@@ -26,7 +26,7 @@
       <swiper-item v-for="(item,i) of showList">
         <view class="sv-item">
 
-          <txv-video playerid="i" :vid="item.vid"
+          <txv-video :playerid="item.vid" :vid="item.vid"
                      width="100%" height="100%" autoplay="true" isHiddenStop="true" enablePlayGesture="true" playBtnPosition="center">
           </txv-video>
 
@@ -205,7 +205,6 @@ export default {
       }).finally(() => {
         this.reqLock = false;
       })
-
     }, 500),
 
     // 滑动改变
@@ -473,5 +472,9 @@ page {
   display: flex;
   align-items: center;
   z-index: 99;
+  .back-icon {
+    height: 30px;
+    width: 30px;
+  }
 }
 </style>
