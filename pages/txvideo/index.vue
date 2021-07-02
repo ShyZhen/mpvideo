@@ -37,43 +37,43 @@
     </swiper>
 
     <!-- 内容区域 -->
-    <view class="left">
-      <cover-view class="left_box">
+    <view v-if="currItem.id">
+      <view class="left">
+        <cover-view class="left_box">
 
-        <cover-view class="ke">
-          <cover-image src="../../static/txvideo/4.png"></cover-image>
-          <cover-view>外卖红包免费领</cover-view>
+          <cover-view class="ke" @click="jumpOne">
+            <cover-image src="../../static/txvideo/money.png"></cover-image>
+            <cover-view>外卖红包免费领</cover-view>
+          </cover-view>
+
+          <cover-view class="ren">{{ currItem.title }}</cover-view>
+          <cover-view class="ke_context">{{ currItem.desc }}</cover-view>
+
+          <cover-view class="auto" @click="jumpTwo">
+            <cover-image src="../../static/txvideo/tuiguang.png"></cover-image>
+            <cover-view>制作节日头像</cover-view>
+          </cover-view>
         </cover-view>
-
-        <cover-view class="ren">{{ currItem.title }}</cover-view>
-        <cover-view class="ke_context">{{ currItem.desc }}</cover-view>
-
-        <cover-view class="auto">
-          <cover-image src="../../static/txvideo/10.png"></cover-image>
-          <cover-view>庞龙 两只蝴蝶</cover-view>
+      </view>
+      <view class="right">
+        <cover-view class="right_box  ">
+          <cover-view class="top2">
+            <cover-image class="t_img" src="../../static/txvideo/like.png" mode=""></cover-image>
+            <!-- <cover-view class="font_t">397</cover-view> -->
+          </cover-view>
+          <cover-view class="top2">
+            <cover-image class="t_img" src="../../static/txvideo/comment.png" mode=""></cover-image>
+          </cover-view>
+          <cover-view class="top2">
+            <cover-image class="t_img" src="../../static/txvideo/share.png" mode=""></cover-image>
+          </cover-view>
+          <cover-view class="top2">
+            <cover-image class="t_img" src="../../static/txvideo/gift.png" mode=""></cover-image>
+          </cover-view>
         </cover-view>
-      </cover-view>
+      </view>
     </view>
-    <view class="right">
-      <cover-view class="right_box  ">
-        <cover-view class="top2">
-          <cover-image class="t_img" src="../../static/txvideo/2.png" mode=""></cover-image>
-          <cover-view class="font_t">397</cover-view>
-        </cover-view>
-        <cover-view class="top2">
-          <cover-image class="t_img" src="../../static/txvideo/8.png" mode=""></cover-image>
-          <cover-view class="font_t">397</cover-view>
-        </cover-view>
-        <cover-view class="top2">
-          <cover-image class="t_img" src="../../static/txvideo/3.png" mode=""></cover-image>
-          <cover-view class="font_t">397</cover-view>
-        </cover-view>
-        <cover-view class="top2">
-          <cover-image class="t_img" src="../../static/txvideo/7.png" mode=""></cover-image>
-          <cover-view class="font_t">397</cover-view>
-        </cover-view>
-      </cover-view>
-    </view>
+
   </view>
 </template>
 
@@ -292,18 +292,39 @@ export default {
     // 返回
     back() {
       uni.navigateBack();
-    }
+    },
+    jumpOne() {
+      wx.navigateToMiniProgram({
+        appId: 'wxf6d3a6785014c8ad',
+        path: 'pages/index/index',
+        success(res) {
+        },
+        fail(e) {
+          console.log(e);
+        }
+      })
+    },
+    jumpTwo() {
+      wx.navigateToMiniProgram({
+        appId: 'wx0559a4b18b51c197',
+        path: 'pages/index/index',
+        success(res) {
+        },
+        fail(e) {
+          console.log(e);
+        }
+      })
+    },
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 page {
   background-color: #000;
 }
-</style>
 
-<style lang="scss" scoped>
 .debug {
   position: absolute;
   left: 50rpx;
