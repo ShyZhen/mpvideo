@@ -26,7 +26,7 @@
       <swiper-item v-for="(item,i) of showList">
         <view class="sv-item">
 
-          <txv-video :playerid="item.vid" :vid="item.vid"
+          <txv-video :playerid="item.id" :vid="item.vid"
                      width="100%" height="100%" autoplay="true" isHiddenStop="true" enablePlayGesture="true" playBtnPosition="center">
           </txv-video>
 
